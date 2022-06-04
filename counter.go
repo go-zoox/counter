@@ -12,16 +12,16 @@ type Counter struct {
 	prefix    string
 	namespace string
 	bucket    bucket.Bucket
-	maxAge    time.Duration
 }
 
 // New creates a counter.
 func New(bucket bucket.Bucket, namespace string, maxAge time.Duration) *Counter {
+	bucket.Config(maxAge)
+
 	return &Counter{
 		bucket:    bucket,
 		prefix:    "go-zoox:counter",
 		namespace: namespace,
-		maxAge:    maxAge,
 	}
 }
 
