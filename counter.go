@@ -41,7 +41,12 @@ func (c *Counter) Count(id string) (*bucket.Value, error) {
 
 // Reset resets the counter to 0.
 func (c *Counter) Reset(id string) error {
-	return c.bucket.Del(c.key(id))
+	idx := c.key(id)
+	if err := c.bucket.Del(idx); err != nil {
+		return err
+	}
+
+	return c.bucket.Inc(idx)
 }
 
 // NewMemory creates a in-memory counter.
