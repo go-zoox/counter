@@ -22,7 +22,7 @@ func (mb *BucketKV) Config(maxAge time.Duration) {
 func (mb *BucketKV) Inc(key string) error {
 	if !mb.Storage.Has(key) {
 		expiresAt := time.Now().UnixNano()/int64(time.Millisecond) + int64(mb.maxAge/time.Millisecond)
-		return mb.Storage.Set(key, Value{
+		return mb.Storage.Set(key, &Value{
 			Count:     1,
 			ExpiresAt: expiresAt,
 		}, mb.maxAge)
@@ -35,7 +35,7 @@ func (mb *BucketKV) Inc(key string) error {
 
 	value.Count++
 
-	return mb.Storage.Set(key, value)
+	return mb.Storage.Set(key, &value)
 }
 
 // Get returns the bucket value.
