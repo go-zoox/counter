@@ -6,20 +6,20 @@ import (
 	"github.com/go-zoox/kv"
 )
 
-// BucketKV is a in-BucketKV bucket.
-type BucketKV struct {
+// KV is a in-KV bucket.
+type KV struct {
 	Storage kv.KV
 	//
 	maxAge time.Duration
 }
 
 // Config sets the max age of the bucket.
-func (mb *BucketKV) Config(maxAge time.Duration) {
+func (mb *KV) Config(maxAge time.Duration) {
 	mb.maxAge = maxAge
 }
 
 // Inc increases the counter by 1.
-func (mb *BucketKV) Inc(key string) error {
+func (mb *KV) Inc(key string) error {
 	if !mb.Storage.Has(key) {
 		expiresAt := time.Now().UnixNano()/int64(time.Millisecond) + int64(mb.maxAge/time.Millisecond)
 		err := mb.Storage.Set(key, &Value{
@@ -40,7 +40,7 @@ func (mb *BucketKV) Inc(key string) error {
 }
 
 // Get returns the bucket value.
-func (mb *BucketKV) Get(key string) (*Value, error) {
+func (mb *KV) Get(key string) (*Value, error) {
 	var value Value
 	if err := mb.Storage.Get(key, &value); err != nil {
 		return nil, err
@@ -50,6 +50,6 @@ func (mb *BucketKV) Get(key string) (*Value, error) {
 }
 
 // Del deletes the bucket value.
-func (mb *BucketKV) Del(key string) error {
+func (mb *KV) Del(key string) error {
 	return mb.Storage.Delete(key)
 }

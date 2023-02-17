@@ -7,7 +7,7 @@ import (
 
 // Redis is a in-Redis bucket.
 type Redis struct {
-	*BucketKV
+	*KV
 }
 
 // RedisConfig is the configuration for Redis.
@@ -21,7 +21,7 @@ func NewRedis(cfg *RedisConfig) (*Redis, error) {
 	}
 
 	return &Redis{
-		BucketKV: &BucketKV{
+		KV: &KV{
 			Storage: storage,
 		},
 	}, nil

@@ -6,13 +6,13 @@ import (
 
 // Memory is a in-memory bucket.
 type Memory struct {
-	*BucketKV
+	*KV
 }
 
 // NewMemory creates a new in-memory bucket.
 func NewMemory() *Memory {
 	return &Memory{
-		BucketKV: &BucketKV{
+		KV: &KV{
 			Storage: kv.NewMemory(),
 		},
 	}
