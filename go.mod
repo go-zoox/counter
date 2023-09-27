@@ -2,7 +2,7 @@ module github.com/go-zoox/counter
 
 go 1.18
 
-require github.com/go-zoox/kv v1.5.0
+require github.com/go-zoox/kv v1.5.9
 
 require (
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect

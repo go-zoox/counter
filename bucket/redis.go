@@ -11,7 +11,7 @@ type Redis struct {
 }
 
 // RedisConfig is the configuration for Redis.
-type RedisConfig = kvredis.RedisConfig
+type RedisConfig = kvredis.Config
 
 // NewRedis creates a new in-Redis bucket.
 func NewRedis(cfg *RedisConfig) (*Redis, error) {
